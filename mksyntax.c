@@ -34,9 +34,9 @@
 #include "syntax.h"
 
 // __declspec(dllimport) should be used for shared imported variables
-// as a temporary workaround
-extern int optind __declspec(dllimport);
-extern char *optarg __declspec(dllimport);
+// as a temporary workaround for native compilation
+extern int optind; // __declspec(dllimport);
+extern char *optarg; // __declspec(dllimport);
 
 #ifndef errno
 extern int errno;
