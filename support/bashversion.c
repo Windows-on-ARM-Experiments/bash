@@ -41,8 +41,10 @@
 #define LFLAG	0x0020
 #define XFLAG	0x0040
 
-extern int optind;
-extern char *optarg;
+// __declspec(dllimport) should be used for shared imported variables
+// as a temporary workaround  for native compilation
+extern int optind; // __declspec(dllimport);
+extern char *optarg; // __declspec(dllimport);
 
 extern char *dist_version;
 extern int patch_level;

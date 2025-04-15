@@ -102,7 +102,9 @@ extern int errno;
 #endif
 
 #if defined (NO_MAIN_ENV_ARG)
-extern char **environ;	/* used if no third argument to main() */
+// __declspec(dllimport) should be used for shared imported variables
+// as a temporary workaround
+extern char **environ __declspec(dllimport);	/* used if no third argument to main() */
 #endif
 
 extern int gnu_error_format;
@@ -616,12 +618,13 @@ main (argc, argv, env)
 	in_emacs = emacs_term = 0;
 
       /* Not sure any emacs terminal emulator sets TERM=emacs any more */
-      no_line_editing |= STREQ (term, "emacs");
-      no_line_editing |= in_emacs && STREQ (term, "dumb");
+// The feature requires investigation
+      // no_line_editing |= STREQ (term, "emacs");
+      // no_line_editing |= in_emacs && STREQ (term, "dumb");
 
       /* running_under_emacs == 2 for `eterm' */
-      running_under_emacs = in_emacs || STREQN (term, "emacs", 5);
-      running_under_emacs += emacs_term && STREQN (term, "eterm", 5);
+      // running_under_emacs = in_emacs || STREQN (term, "emacs", 5);
+      // running_under_emacs += emacs_term && STREQN (term, "eterm", 5);
 
       if (running_under_emacs)
 	gnu_error_format = 1;
@@ -1975,7 +1978,9 @@ shell_initialize ()
      functions from the environment if we are running in privileged or
      restricted mode or if the shell is running setuid. */
 #if defined (RESTRICTED_SHELL)
-  initialize_shell_variables (shell_environment, privileged_mode||restricted||should_be_restricted||running_setuid);
+//  The flag impact requires investigation.
+//  initialize_shell_variables (shell_environment, privileged_mode||restricted||should_be_restricted||running_setuid);
+  initialize_shell_variables (shell_environment, 0);
 #else
   initialize_shell_variables (shell_environment, privileged_mode||running_setuid);
 #endif

@@ -5602,7 +5602,8 @@ execute_disk_command (words, redirects, command_line, pipe_in, pipe_out,
   WORD_LIST *wl;
 
   stdpath = (cmdflags & CMD_STDPATH);	/* use command -p path */
-  nofork = (cmdflags & CMD_NO_FORK);	/* Don't fork, just exec, if no pipes */
+  // The fork should be ported to Cygwin
+  nofork = 1; //(cmdflags & CMD_NO_FORK);	/* Don't fork, just exec, if no pipes */
   pathname = words->word->word;
 
   p = 0;

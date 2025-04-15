@@ -108,7 +108,9 @@
 #define FV_SKIPINVISIBLE	0x02
 #define FV_NODYNAMIC		0x04
 
-extern char **environ;
+// __declspec(dllimport) should be used for shared imported variables
+// as a temporary workaround
+extern char **environ __declspec(dllimport);
 
 /* Variables used here and defined in other files. */
 extern time_t shell_start_time;
@@ -512,13 +514,14 @@ initialize_shell_variables (env, privmode)
 	    }
 	  if (legal_identifier (name))
 	    {
-	      temp_var = bind_variable (name, string, 0);
-	      if (temp_var)
-		{
-		  VSETATTR (temp_var, (att_exported | att_imported));
-		  if (ro)
-		    VSETATTR (temp_var, att_readonly);
-		}
+  // Some issue realted to variable binding
+	//       temp_var = bind_variable (name, string, 0);
+	//       if (temp_var)
+		// {
+		//   VSETATTR (temp_var, (att_exported | att_imported));
+	// 	  if (ro)
+	// 	    VSETATTR (temp_var, att_readonly);
+		// }
 	    }
 	  else
 	    {
@@ -539,8 +542,8 @@ initialize_shell_variables (env, privmode)
 	}
     }
 
-  set_pwd ();
-
+// set_pwd issue requires investigation.
+//   set_pwd ();
   /* Set up initial value of $_ */
   temp_var = set_if_not ("_", dollar_vars[0]);
 
@@ -549,7 +552,8 @@ initialize_shell_variables (env, privmode)
 
   /* Now make our own defaults in case the vars that we think are
      important are missing. */
-  temp_var = set_if_not ("PATH", DEFAULT_PATH_VALUE);
+// Something related to DEFAULT_PATH_VALUE.
+//   temp_var = set_if_not ("PATH", DEFAULT_PATH_VALUE);
   temp_var = set_if_not ("TERM", "dumb");
 
 #if defined (__QNX__)
