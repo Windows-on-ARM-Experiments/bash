@@ -102,9 +102,7 @@ extern int errno;
 #endif
 
 #if defined (NO_MAIN_ENV_ARG)
-// __declspec(dllimport) should be used for shared imported variables
-// as a temporary workaround
-extern char **environ __declspec(dllimport);	/* used if no third argument to main() */
+extern char **environ;	/* used if no third argument to main() */
 #endif
 
 extern int gnu_error_format;

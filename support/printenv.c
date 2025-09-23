@@ -31,9 +31,7 @@
 #include "bashansi.h"
 #include <stdio.h>		/* puts */
 
-// __declspec(dllimport) should be used for shared imported variables
-// as a temporary workaround
-extern char **environ __declspec(dllimport);
+extern char **environ;
 
 int
 main (argc, argv) 
