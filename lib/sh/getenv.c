@@ -35,9 +35,7 @@
 extern int errno;
 #endif
 
-// __declspec(dllimport) should be used for shared imported variables
-// as a temporary workaround
-extern char **environ __declspec(dllimport);
+extern char **environ;
 
 /* We supply our own version of getenv () because we want library
    routines to get the changed values of exported variables. */

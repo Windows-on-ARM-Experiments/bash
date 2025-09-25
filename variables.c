@@ -108,9 +108,7 @@
 #define FV_SKIPINVISIBLE	0x02
 #define FV_NODYNAMIC		0x04
 
-// __declspec(dllimport) should be used for shared imported variables
-// as a temporary workaround
-extern char **environ __declspec(dllimport);
+extern char **environ;
 
 /* Variables used here and defined in other files. */
 extern time_t shell_start_time;
